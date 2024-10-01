@@ -1,0 +1,9 @@
+calculator
+calculator-dbg
+*.o
+*.swp
+*.swo
+*.tmp
+*.log
+build/
+bin/
