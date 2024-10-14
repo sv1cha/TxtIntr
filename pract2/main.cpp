@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <getopt.h>
+
 using namespace std;
 
 const double g = 9.81; // Ускорение свободного падения 
@@ -18,6 +19,18 @@ void calculateRange(double angle, double velocity) {
     double radianAngle = angle * M_PI / 180.0; // Преобразование градусов в радианы
     double range = (pow(velocity, 2) * sin(2 * radianAngle)) / g;
     cout << "Дальность полета: " << range << " метров" << endl;
+}
+
+bool validateInput(double angle, double velocity) {
+    if (angle < 0 || angle > 90) {
+        cout << "Ошибка: угол должен быть в диапазоне от 0 до 90 градусов." << endl;
+        return false;
+    }
+    if (velocity < 0) {
+        cout << "Ошибка: начальная скорость не может быть отрицательной." << endl;
+        return false;
+    }
+    return true;
 }
 
 int main(int argc, char* argv[]) {
@@ -39,7 +52,9 @@ int main(int argc, char* argv[]) {
             }
             double angle = atof(argv[3]);
             double velocity = atof(argv[4]);
-            calculateHeight(angle, velocity);
+            if (validateInput(angle, velocity)) {
+                calculateHeight(angle, velocity);
+            }
             exit(0);
         }
 
@@ -50,10 +65,15 @@ int main(int argc, char* argv[]) {
             }
             double angle = atof(argv[3]);
             double velocity = atof(argv[4]);
-            calculateRange(angle, velocity);
+            if (validateInput(angle, velocity)) {
+                calculateRange(angle, velocity);
+            }
             exit(0);
         }
     }
 
     return 0;
 }
+
+
+
